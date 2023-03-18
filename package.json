@@ -3,14 +3,17 @@
   "version": "2.0.0",
   "description": "Author API",
   "main": "server.js",
+  "dependencies": {
+    "@prisma/client": "4.11.0",
+
+    "dotenv": "16.0.3"
+  },
   "devDependencies": {
     "@rocketseat/eslint-config": "1.2.0",
     "prisma": "4.11.0",
     "tsx": "3.12.5",
     "typescript": "5.0.2",
-    "vitest": "0.29.3"
-  },
-  "dependencies": {
-    "dotenv": "16.0.3"
+    "vitest": "0.29.3",
+    "@types/node": "18.15.3"
   }
 }
