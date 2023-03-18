@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Author {
+  id         String   @id
+  name       String
+  username   String   @unique
+  password   String
+  created_at DateTime
+  deleted_at DateTime
+  bio        String
+
+  refreshToken RefreshToken?
+  pictures     Picture[]
+
+  @@map("authors")
+}
+
+model Picture {
+  id         String   @id
+  html_url   String
+  name       String
+  alias_key  String   @unique
+  deleted_at DateTime
+  created_at DateTime
+
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId String
+
+  @@index(authorId)
+  @@map("pictures")
+}
+
+model RefreshToken {
+  id        String @id
+  expire_in Int
+  token     String
+
+  author   Author @relation(fields: [authorId], references: [id])
+  authorId String @unique
+
+  @@index([authorId])
+  @@map("refreshToken")
+}
