@@ -5,15 +5,15 @@
   "main": "server.js",
   "dependencies": {
     "@prisma/client": "4.11.0",
-
     "dotenv": "16.0.3"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "1.2.0",
+    "@types/node": "18.15.3",
     "prisma": "4.11.0",
     "tsx": "3.12.5",
     "typescript": "5.0.2",
-    "vitest": "0.29.3",
-    "@types/node": "18.15.3"
+    "vite-tsconfig-paths": "4.0.7",
+    "vitest": "0.29.3"
   }
 }
