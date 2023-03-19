@@ -14,4 +14,10 @@ export class InMemoryAuthorsRepository implements AuthorsRepository {
     if (!author) return null
     return author
   }
+
+  async save(author: Author): Promise<void> {
+    const authorIndex = this.authors.findIndex((a) => a.id === author.id)
+
+    this.authors[authorIndex] = author
+  }
 }
