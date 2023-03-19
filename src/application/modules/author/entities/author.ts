@@ -74,6 +74,7 @@ export class Author {
   }
 
   unDoDelete() {
+    if (!this.props.deletedAt) throw new Error('This author is not deleted')
     this.props.deletedAt = null
   }
 }
