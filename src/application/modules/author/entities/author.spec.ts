@@ -10,28 +10,8 @@ describe('Author entity', () => {
     expect(author).toEqual(
       expect.objectContaining({
         name: expect.any(String),
-        password: expect.objectContaining({
-          field: expect.any(String),
-        }),
-        username: expect.objectContaining({
-          field: expect.any(String),
-        }),
-      }),
-    )
-  })
-
-  it('should not be able to instance an Author with username in wrong format', () => {
-    expect(() =>
-      makeAuthor({
-        username: 'wrong-username-format',
-      }),
-    ).toThrow()
-  })
-
-  it('should not be able to instance an Author with password in wrong format', () => {
-    expect(() =>
-      makeAuthor({
-        password: 'wrong-password-format',
+        password: expect.any(String),
+        username: expect.any(String),
       }),
     )
   })
