@@ -25,8 +25,8 @@ describe('Register author use case', () => {
 
     const response = await sut.execute({
       name,
-      password: password.value,
-      username: username.value,
+      password,
+      username,
     })
 
     expect(inMemoryAuthorsRepository.authors).toHaveLength(1)
@@ -43,15 +43,15 @@ describe('Register author use case', () => {
     const { name, username, password } = makeAuthor()
     await sut.execute({
       name,
-      password: password.value,
-      username: username.value,
+      password,
+      username,
     })
 
     await expect(() =>
       sut.execute({
         name,
-        password: password.value,
-        username: username.value,
+        password,
+        username,
       }),
     ).rejects.toBeInstanceOf(UserAlreadyExistsError)
   })
@@ -60,14 +60,11 @@ describe('Register author use case', () => {
     const { name, username, password } = makeAuthor()
     const { author } = await sut.execute({
       name,
-      password: password.value,
-      username: username.value,
+      password,
+      username,
     })
 
-    const isPasswordCorrectlyHashed = await compare(
-      password.value,
-      author.password.value,
-    )
+    const isPasswordCorrectlyHashed = await compare(password, author.password)
 
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
@@ -77,8 +74,8 @@ describe('Register author use case', () => {
       const { name, username, password } = makeAuthor()
       const { accessToken, author } = await sut.execute({
         name,
-        password: password.value,
-        username: username.value,
+        password,
+        username,
       })
 
       const savedAccesToken = await redisMock.getValue(author.id)
@@ -89,8 +86,8 @@ describe('Register author use case', () => {
       const { name, username, password } = makeAuthor()
       const { accessToken, author } = await sut.execute({
         name,
-        password: password.value,
-        username: username.value,
+        password,
+        username,
       })
 
       const isTokenValid = verify(accessToken, env.JWT_SECRET)
@@ -102,8 +99,8 @@ describe('Register author use case', () => {
       const { name, username, password } = makeAuthor()
       const { refreshToken, author } = await sut.execute({
         name,
-        password: password.value,
-        username: username.value,
+        password,
+        username,
       })
 
       const isTokenValid = verify(refreshToken, env.JWT_SECRET)

@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest'
 import { makeAuthor } from '../factory/make-author'
-import { Password, Username } from './author-fields'
 
 describe('Author entity', () => {
   it('should be able to instance an Author', () => {
@@ -8,8 +7,6 @@ describe('Author entity', () => {
 
     expect(author).toHaveProperty('id')
     expect(author).toHaveProperty('createdAt')
-    expect(author.password).toBeInstanceOf(Password)
-    expect(author.username).toBeInstanceOf(Username)
     expect(author).toEqual(
       expect.objectContaining({
         name: expect.any(String),
@@ -26,7 +23,7 @@ describe('Author entity', () => {
   it('should not be able to instance an Author with username in wrong format', () => {
     expect(() =>
       makeAuthor({
-        username: new Username('wrong-username-format'),
+        username: 'wrong-username-format',
       }),
     ).toThrow()
   })
@@ -34,7 +31,7 @@ describe('Author entity', () => {
   it('should not be able to instance an Author with password in wrong format', () => {
     expect(() =>
       makeAuthor({
-        password: new Password('wrong-password-format'),
+        password: 'wrong-password-format',
       }),
     )
   })

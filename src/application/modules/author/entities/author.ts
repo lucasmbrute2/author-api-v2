@@ -1,12 +1,11 @@
 import { randomUUID } from 'node:crypto'
 import { Picture } from '../../picture/entities/picture'
-import { Password, Username } from './author-fields'
 
 interface AuthorProps {
   id?: string
   name: string
-  username: Username
-  password: Password
+  username: string
+  password: string
   bio?: string
   createdAt?: Date
   deletedAt?: Date | null
@@ -37,19 +36,19 @@ export class Author {
     return this.props.name
   }
 
-  set username(username: Username) {
+  set username(username: string) {
     this.props.username = username
   }
 
-  get username(): Username {
+  get username(): string {
     return this.props.username
   }
 
-  set password(password: Password) {
+  set password(password: string) {
     this.props.password = password
   }
 
-  get password(): Password {
+  get password(): string {
     return this.props.password
   }
 

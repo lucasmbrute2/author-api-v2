@@ -9,9 +9,7 @@ export class InMemoryAuthorsRepository implements AuthorsRepository {
   }
 
   async findByUsername(username: string): Promise<Author | null> {
-    const author = this.authors.find(
-      (author) => author.username.value === username,
-    )
+    const author = this.authors.find((author) => author.username === username)
 
     if (!author) return null
     return author

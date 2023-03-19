@@ -4,7 +4,6 @@ import {
 } from '@/application/helpers/token-expiration'
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { Author } from '../../entities/author'
-import { Password, Username } from '../../entities/author-fields'
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
 import { sign } from 'jsonwebtoken'
 import { env } from '@/application/env'
@@ -42,12 +41,12 @@ export class RegisterAuthorUseCase {
 
     const author = new Author({
       name,
-      password: new Password(password),
-      username: new Username(username),
+      password,
+      username,
     })
 
     const incryptedPassword = await hash(password, 6)
-    author.password = new Password(incryptedPassword, false)
+    author.password = incryptedPassword
 
     const accessTokenExpirationTime = new AccessTokenExpiration()
       .tokenExpirationInHours
