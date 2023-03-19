@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { makeAuthor } from '../factory/makeAuthor'
+import { makeAuthor } from '../factory/make-author'
 import { Password, Username } from './author-fields'
 
 describe('Author entity', () => {
