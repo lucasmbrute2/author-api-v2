@@ -8,6 +8,12 @@ export class InMemoryAuthorsRepository implements AuthorsRepository {
     this.authors.push(author)
   }
 
+  async save(author: Author): Promise<void> {
+    const authorIndex = this.authors.findIndex((a) => a.id === author.id)
+
+    this.authors[authorIndex] = author
+  }
+
   async findByUsername(username: string): Promise<Author | null> {
     const author = this.authors.find((author) => author.username === username)
 
@@ -15,9 +21,10 @@ export class InMemoryAuthorsRepository implements AuthorsRepository {
     return author
   }
 
-  async save(author: Author): Promise<void> {
-    const authorIndex = this.authors.findIndex((a) => a.id === author.id)
+  async findById(authorId: string): Promise<Author | null> {
+    const author = this.authors.find((author) => author.id === authorId)
 
-    this.authors[authorIndex] = author
+    if (!author) return null
+    return author
   }
 }
