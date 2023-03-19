@@ -82,4 +82,12 @@ export class Author {
   get pictures(): Picture[] | undefined {
     return this.props.pictures
   }
+
+  set refreshToken(refreshToken: string | undefined) {
+    this.props.refreshToken = refreshToken
+  }
+
+  get refreshToken(): string | undefined {
+    return this.props.refreshToken
+  }
 }
