@@ -8,16 +8,16 @@ datasource db {
 }
 
 model Author {
-  id         String   @id
-  name       String
-  username   String   @unique
-  password   String
-  created_at DateTime
-  deleted_at DateTime
-  bio        String?
+  id           String   @id
+  name         String
+  username     String   @unique
+  password     String
+  created_at   DateTime
+  deleted_at   DateTime
+  bio          String?
+  refreshToken String?
 
-  refreshToken RefreshToken?
-  pictures     Picture[]
+  pictures Picture[]
 
   @@map("authors")
 }
@@ -35,16 +35,4 @@ model Picture {
 
   @@index(authorId)
   @@map("pictures")
-}
-
-model RefreshToken {
-  id        String @id
-  expire_in Int?
-  token     String
-
-  author   Author @relation(fields: [authorId], references: [id])
-  authorId String @unique
-
-  @@index([authorId])
-  @@map("refreshToken")
 }
