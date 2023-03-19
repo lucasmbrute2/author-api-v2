@@ -1,4 +1,5 @@
 import { randomUUID } from 'node:crypto'
+import { Picture } from '../../picture/entities/picture'
 import { Password, Username } from './author-fields'
 
 interface AuthorProps {
@@ -10,7 +11,7 @@ interface AuthorProps {
   createdAt?: Date
   deletedAt?: Date | null
   refreshToken?: string
-  pictures?: []
+  pictures?: Picture[]
 }
 
 export class Author {
@@ -76,5 +77,9 @@ export class Author {
   unDoDelete() {
     if (!this.props.deletedAt) throw new Error('This author is not deleted')
     this.props.deletedAt = null
+  }
+
+  get pictures(): Picture[] | undefined {
+    return this.props.pictures
   }
 }
