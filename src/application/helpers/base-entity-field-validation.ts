@@ -15,7 +15,7 @@ export class BaseEntityFieldValidation {
     return this.field.match(this.regex) !== null
   }
 
-  value() {
+  get value() {
     return this.field
   }
 }
