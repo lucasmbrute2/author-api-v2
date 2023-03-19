@@ -6,7 +6,7 @@ class Token {
     this.TOKEN_EXPIRE_IN_HOURS = this.SECONDS * this.SECONDS * hours
   }
 
-  get tokenExpirationHours() {
+  get tokenExpirationInHours() {
     return this.TOKEN_EXPIRE_IN_HOURS
   }
 }

@@ -39,7 +39,7 @@ model Picture {
 
 model RefreshToken {
   id        String @id
-  expire_in Int
+  expire_in Int?
   token     String
 
   author   Author @relation(fields: [authorId], references: [id])
