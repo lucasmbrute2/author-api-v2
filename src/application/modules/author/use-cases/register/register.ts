@@ -1,14 +1,9 @@
-import {
-  AccessTokenExpiration,
-  RefreshTokenExpiration,
-} from '@/application/helpers/token-expiration'
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { Author } from '../../entities/author'
 import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
-import { sign } from 'jsonwebtoken'
-import { env } from '@/application/env'
 import { hash } from 'bcryptjs'
 import { RedisRepository } from '@/application/repositories/redis-repository'
+import { createAccessTokenAndRefreshToken } from '@/application/helpers/create-access-token-and-refresh-token'
 
 interface RegisterAuthorUseCaseProps {
   name: string
@@ -48,35 +43,22 @@ export class RegisterAuthorUseCase {
     const incryptedPassword = await hash(password, 6)
     author.password = incryptedPassword
 
-    const accessTokenExpirationTime = new AccessTokenExpiration()
-      .tokenExpirationInHours
+    const { accessToken, refreshToken } =
+      createAccessTokenAndRefreshToken(author)
 
-    const accessToken = sign({}, env.JWT_SECRET, {
-      expiresIn: `${accessTokenExpirationTime}h`,
-      subject: author.id,
-    })
-
-    const refreshTokenExpirationTime = new RefreshTokenExpiration()
-      .tokenExpirationInHours
-
-    const refreshToken = sign({}, env.JWT_SECRET, {
-      expiresIn: `${refreshTokenExpirationTime}h`,
-      subject: author.id,
-    })
-
-    author.refreshToken = refreshToken
+    author.refreshToken = refreshToken.token
 
     await this.authorRepository.create(author)
     await this.redisClient.setValue(
       author.id,
-      accessToken,
-      accessTokenExpirationTime,
+      accessToken.token,
+      accessToken.expirationTime,
     )
 
     return {
       author,
-      accessToken,
-      refreshToken,
+      accessToken: accessToken.token,
+      refreshToken: refreshToken.token,
     }
   }
 }
