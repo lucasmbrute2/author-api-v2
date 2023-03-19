@@ -3,6 +3,10 @@
   "version": "2.0.0",
   "description": "Author API",
   "main": "server.js",
+  "scripts": {
+    "test": "vitest run --dir src/application",
+    "test:watch": "vitest --dir src/application"
+  },
   "dependencies": {
     "@prisma/client": "4.11.0",
     "dotenv": "16.0.3",
