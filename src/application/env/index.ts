@@ -9,6 +9,7 @@ const envSchema = z.object({
   REDISPASSWORD: z.string(),
   REDISUSER: z.string(),
   REDISHOST: z.string(),
+  STORAGE: z.enum(['local', 's3']).default('local'),
 })
 
 const _env = envSchema.safeParse(process.env)
