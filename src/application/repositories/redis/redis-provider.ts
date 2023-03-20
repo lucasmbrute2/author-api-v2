@@ -17,14 +17,6 @@ export class RedisProvider implements RedisRepository {
     })
   }
 
-  async disconnect(): Promise<void> {
-    this.redisClient.disconnect()
-  }
-
-  async connect(): Promise<void> {
-    await this.redisClient.connect()
-  }
-
   async setValue(key: string, value: string, expire: number): Promise<void> {
     await this.redisClient.set(key, value, 'EX', expire)
   }
