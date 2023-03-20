@@ -8,12 +8,12 @@ datasource db {
 }
 
 model Author {
-  id           String   @id
+  id           String    @id
   name         String
-  username     String   @unique
+  username     String    @unique
   password     String
   created_at   DateTime
-  deleted_at   DateTime
+  deleted_at   DateTime?
   bio          String?
   refreshToken String?
 
@@ -23,11 +23,11 @@ model Author {
 }
 
 model Picture {
-  id         String   @id
+  id         String    @id
   html_url   String
   name       String
-  alias_key  String   @unique
-  deleted_at DateTime
+  alias_key  String    @unique
+  deleted_at DateTime?
   created_at DateTime
 
   author   Author @relation(fields: [authorId], references: [id])
