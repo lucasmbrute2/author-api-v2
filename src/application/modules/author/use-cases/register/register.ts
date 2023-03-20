@@ -1,4 +1,4 @@
-import { AuthorsRepository } from '@/application/repositories/authors-repositories'
+import { AuthorsRepository } from '@/application/repositories/authors-repository'
 import { Author } from '../../entities/author'
 import { UserAlreadyExistsError } from '../../errors/user-already-exists-error'
 import { hash } from 'bcryptjs'

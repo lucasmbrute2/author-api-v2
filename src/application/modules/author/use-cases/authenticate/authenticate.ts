@@ -1,5 +1,5 @@
 import { createAccessTokenAndRefreshToken } from '@/application/helpers/create-access-token-and-refresh-token'
-import { AuthorsRepository } from '@/application/repositories/authors-repositories'
+import { AuthorsRepository } from '@/application/repositories/authors-repository'
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { compare } from 'bcryptjs'
 import { inject, injectable } from 'tsyringe'

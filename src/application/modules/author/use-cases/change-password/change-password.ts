@@ -1,4 +1,4 @@
-import { AuthorsRepository } from '@/application/repositories/authors-repositories'
+import { AuthorsRepository } from '@/application/repositories/authors-repository'
 import { compare, hash } from 'bcryptjs'
 import { inject, injectable } from 'tsyringe'
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'

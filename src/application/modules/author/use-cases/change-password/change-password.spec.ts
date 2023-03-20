@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { InMemoryAuthorsRepository } from '@/application/repositories/in-memory/in-memory-authors-repository'
 import { compare, hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'

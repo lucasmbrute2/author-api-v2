@@ -1,6 +1,6 @@
 import { Author } from '@/application/modules/author/entities/author'
 import { inject, injectable } from 'tsyringe'
-import { AuthorsRepository } from '../authors-repositories'
+import { AuthorsRepository } from '../authors-repository'
 import { PrismaClient } from '@prisma/client'
 import { PrismaMapper } from './mappers/author-mapper'
 
