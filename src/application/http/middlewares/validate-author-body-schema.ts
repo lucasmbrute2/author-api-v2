@@ -9,7 +9,7 @@ export function validateBodySchema(
 ) {
   const registerBodySchema = z.object({
     name: z.string(),
-    email: z.string().email(),
+    username: z.string().email(),
     password: z.string().min(6),
   })
 
