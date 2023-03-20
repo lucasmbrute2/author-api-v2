@@ -22,13 +22,13 @@ export class AuthenticateController {
         password,
       })
 
-    res.clearCookie('jwt', {
+    res.clearCookie('refreshToken', {
       httpOnly: true,
       sameSite: 'none',
       secure: true,
     })
 
-    res.cookie('jwt', refreshToken, {
+    res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
       maxAge: 24 * 60 * 60 * 1000,
