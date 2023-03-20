@@ -11,7 +11,7 @@ interface RegisterControllerProps {
 
 export class RegisterController {
   async handle(
-    req: Request<null, null, RegisterControllerProps>,
+    req: Request<unknown, unknown, RegisterControllerProps>,
     res: Response,
   ): Promise<Response> {
     const { name, password, username } = req.body
@@ -23,7 +23,7 @@ export class RegisterController {
       username,
     })
 
-    return res.json({
+    return res.status(201).json({
       author: AuthorViewModel.toHTTP(author),
       accessToken,
     })
