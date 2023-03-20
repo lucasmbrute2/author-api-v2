@@ -1,3 +1,4 @@
+import { AppError } from '@/shared/errors/global-errors'
 import 'dotenv/config'
 import { z } from 'zod'
 
@@ -14,7 +15,7 @@ const _env = envSchema.safeParse(process.env)
 
 if (_env.success === false) {
   console.error('Invalid environment variables', _env.error.format())
-  throw new Error('Invalid enviroment variables')
+  throw new AppError('Invalid enviroment variables', 500)
 }
 
 export const env = _env.data
