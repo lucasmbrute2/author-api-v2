@@ -9,7 +9,7 @@ interface AuthorProps {
   bio?: string
   createdAt?: Date
   deletedAt?: Date | null
-  refreshToken?: string
+  refreshToken?: string | null
   pictures?: Picture[]
 }
 
@@ -82,11 +82,11 @@ export class Author {
     return this.props.pictures
   }
 
-  set refreshToken(refreshToken: string | undefined) {
+  set refreshToken(refreshToken: string | null | undefined) {
     this.props.refreshToken = refreshToken
   }
 
-  get refreshToken(): string | undefined {
+  get refreshToken(): string | null | undefined {
     return this.props.refreshToken
   }
 }
