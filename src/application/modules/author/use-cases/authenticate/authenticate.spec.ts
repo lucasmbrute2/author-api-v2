@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { InMemoryAuthorsRepository } from '@/application/repositories/in-memory/in-memory-authors-repository'
 import { RedisMock } from '@/application/repositories/in-memory/redis-mock'
 import { hash } from 'bcryptjs'
@@ -27,7 +28,7 @@ describe('Authenticate use case', () => {
     await inMemoryAuthorsRepository.create(author)
 
     const response = await sut.execute({
-      email: author.username,
+      username: author.username,
       password: 'StrongPassword!123',
     })
 
@@ -44,13 +45,13 @@ describe('Authenticate use case', () => {
 
     await expect(() =>
       sut.execute({
-        email: author.username,
+        username: author.username,
         password: 'Adkasd!4131',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
 
-  it('should not be able to authenticate an author with wrong email ', async () => {
+  it('should not be able to authenticate an author with wrong username ', async () => {
     const author = makeAuthor()
     const incriptedPassword = await hash(author.password, 6)
     author.password = incriptedPassword
@@ -59,7 +60,7 @@ describe('Authenticate use case', () => {
 
     await expect(() =>
       sut.execute({
-        email: 'wrong-email@gmail.com',
+        username: 'wrong-username@gmail.com',
         password: 'StrongPassword!123',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
@@ -74,7 +75,7 @@ describe('Authenticate use case', () => {
       await inMemoryAuthorsRepository.create(author)
 
       await sut.execute({
-        email: author.username,
+        username: author.username,
         password: 'StrongPassword!123',
       })
 
@@ -94,7 +95,7 @@ describe('Authenticate use case', () => {
       await inMemoryAuthorsRepository.create(author)
 
       await sut.execute({
-        email: author.username,
+        username: author.username,
         password: 'StrongPassword!123',
       })
 
