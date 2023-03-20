@@ -3,8 +3,17 @@ import { AuthorViewModel } from '@/application/views/author-view-model'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
+interface RegisterControllerProps {
+  name: string
+  password: string
+  username: string
+}
+
 export class RegisterController {
-  async handle(req: Request, res: Response): Promise<Response> {
+  async handle(
+    req: Request<null, null, RegisterControllerProps>,
+    res: Response,
+  ): Promise<Response> {
     const { name, password, username } = req.body
 
     const registerAuthorUseCase = container.resolve(RegisterAuthorUseCase)
