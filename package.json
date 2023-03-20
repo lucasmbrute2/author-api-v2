@@ -6,7 +6,8 @@
   "scripts": {
     "test": "vitest run --dir src/application",
     "test:watch": "vitest --dir src/application",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "start:dev": "tsx watch src/application/server.ts"
   },
   "dependencies": {
     "@prisma/client": "4.11.0",
