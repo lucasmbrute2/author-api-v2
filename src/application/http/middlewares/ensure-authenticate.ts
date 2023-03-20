@@ -18,6 +18,9 @@ export class Authorization {
       const { sub: authorId } = verify(token, env.JWT_SECRET)
 
       const isTokenAvailable = await redisClient.getValue(authorId as string)
+      if (isTokenAvailable !== token) {
+        throw new AppError('Author token does not match', 401)
+      }
 
       req.authorId = authorId as string
 
