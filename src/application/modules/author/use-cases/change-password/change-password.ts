@@ -1,5 +1,6 @@
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { compare, hash } from 'bcryptjs'
+import { inject, injectable } from 'tsyringe'
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 
 interface ChangePasswordUseCaseProps {
@@ -10,8 +11,12 @@ interface ChangePasswordUseCaseProps {
 
 type ChangePasswordUseCaseResponse = void
 
+@injectable()
 export class ChangePasswordUseCase {
-  constructor(private authorRepository: AuthorsRepository) {}
+  constructor(
+    @inject('AuthorsRepository')
+    private authorRepository: AuthorsRepository,
+  ) {}
 
   async execute({
     authorId,
