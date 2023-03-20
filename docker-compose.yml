@@ -9,3 +9,12 @@ services:
       - POSTGRESQL_USERNAME=${POSTGRESQL_USERNAME}
       - POSTGRESQL_PASSWORD=${POSTGRESQL_PASSWORD}
       - POSTGRESQL_DATABASE=${POSTGRESQL_DATABASE}
+
+  redis:
+    image: redis:6.2-alpine
+    ports:
+      - 6379:6379
+    environment:
+      - REDIS_PASSWORD={REDISPASSWORD}
+      - REDIS_HOST={REDISHOST}
+      - REDIS_PORT={REDISPORT}
