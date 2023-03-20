@@ -23,6 +23,7 @@ describe('Change password use case', () => {
 
     await sut.execute({
       authorId: author.id,
+      oldPassword: 'StrongPassword!123',
       newPassword: 'new-password',
     })
 
@@ -38,6 +39,23 @@ describe('Change password use case', () => {
     await expect(() =>
       sut.execute({
         authorId: 'wrong ID',
+        oldPassword: 'StrongPassword!123',
+        newPassword: 'new-password',
+      }),
+    ).rejects.toBeInstanceOf(InvalidCredentialsError)
+  })
+
+  it('should not be able to change a passowrd from an author that sent invalid old password', async () => {
+    const author = makeAuthor()
+    const incriptedPassword = await hash(author.password, 6)
+    author.password = incriptedPassword
+
+    await inMemoryAuthorsRepository.create(author)
+
+    await expect(() =>
+      sut.execute({
+        authorId: author.id,
+        oldPassword: 'wrong-password',
         newPassword: 'new-password',
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
