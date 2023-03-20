@@ -39,4 +39,18 @@ describe('Logout use case', () => {
       }),
     ).rejects.toBeInstanceOf(InvalidCredentialsError)
   })
+
+  it('should be able to delete a refresh token from Author table', async () => {
+    const author = makeAuthor()
+    const incriptedPassword = await hash(author.password, 6)
+    author.password = incriptedPassword
+
+    await inMemoryAuthorsRepository.create(author)
+
+    await sut.execute({
+      authorId: author.id,
+    })
+
+    expect(inMemoryAuthorsRepository.authors[0].refreshToken).toBe(null)
+  })
 })

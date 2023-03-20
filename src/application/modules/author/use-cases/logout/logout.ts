@@ -16,6 +16,7 @@ export class LogoutUseCase {
     const author = await this.authorRepository.findById(authorId)
     if (!author) throw new InvalidCredentialsError()
 
+    author.refreshToken = null
     await this.redisClient.delete(author.id)
   }
 }
