@@ -52,3 +52,25 @@ export function validateAuthenticateSchema(
 
   return next()
 }
+
+export function validateChangePasswordSchema(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  const authenticateBodySchema = z.object({
+    oldPassword: z.string().min(6),
+    newPassword: z.string().min(6),
+  })
+
+  const validation = authenticateBodySchema.safeParse(req.body)
+
+  if (validation.success === false) {
+    throw new AppError(
+      `Invalid body: ${JSON.stringify(validation.error.format())}`,
+      400,
+    )
+  }
+
+  return next()
+}

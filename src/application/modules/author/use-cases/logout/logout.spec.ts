@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import { InMemoryAuthorsRepository } from '@/application/repositories/in-memory/in-memory-authors-repository'
 import { RedisMock } from '@/application/repositories/in-memory/redis-mock'
 import { hash } from 'bcryptjs'
