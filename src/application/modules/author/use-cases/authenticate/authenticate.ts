@@ -2,11 +2,12 @@ import { createAccessTokenAndRefreshToken } from '@/application/helpers/create-a
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { compare } from 'bcryptjs'
+import { inject, injectable } from 'tsyringe'
 import { Author } from '../../entities/author'
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 
 interface AuthenticateUseCaseProps {
-  email: string
+  username: string
   password: string
 }
 
@@ -16,17 +17,20 @@ interface AuthenticateUseCaseResponse {
   refreshToken: string
 }
 
+@injectable()
 export class AuthenticateUseCase {
   constructor(
+    @inject('AuthorsRepository')
     private authorRepository: AuthorsRepository,
+    @inject('RedisRepository')
     private redisClient: RedisRepository,
   ) {}
 
   async execute({
-    email,
+    username,
     password,
   }: AuthenticateUseCaseProps): Promise<AuthenticateUseCaseResponse> {
-    const author = await this.authorRepository.findByUsername(email)
+    const author = await this.authorRepository.findByUsername(username)
     if (!author) throw new InvalidCredentialsError()
 
     const doesPasswordsMatchs = await compare(password, author.password)
