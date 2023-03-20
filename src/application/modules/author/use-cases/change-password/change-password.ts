@@ -1,6 +1,6 @@
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { hash } from 'bcryptjs'
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
+import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 
 interface ChangePasswordUseCaseProps {
   authorId: string

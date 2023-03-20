@@ -3,7 +3,7 @@ import { AuthorsRepository } from '@/application/repositories/authors-repositori
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { compare } from 'bcryptjs'
 import { Author } from '../../entities/author'
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
+import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 
 interface AuthenticateUseCaseProps {
   email: string

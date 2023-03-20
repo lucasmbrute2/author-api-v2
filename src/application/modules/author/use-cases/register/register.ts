@@ -1,6 +1,6 @@
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { Author } from '../../entities/author'
-import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
+import { UserAlreadyExistsError } from '../../errors/user-already-exists-error'
 import { hash } from 'bcryptjs'
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { createAccessTokenAndRefreshToken } from '@/application/helpers/create-access-token-and-refresh-token'

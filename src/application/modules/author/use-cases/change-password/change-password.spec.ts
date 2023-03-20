@@ -2,7 +2,7 @@ import { InMemoryAuthorsRepository } from '@/application/repositories/in-memory/
 import { compare, hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeAuthor } from '../../factory/make-author'
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
+import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 import { ChangePasswordUseCase } from './change-password'
 
 let sut: ChangePasswordUseCase

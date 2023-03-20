@@ -1,6 +1,6 @@
 import { AuthorsRepository } from '@/application/repositories/authors-repositories'
 import { RedisRepository } from '@/application/repositories/redis-repository'
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
+import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 
 interface LogoutUseCaseProps {
   authorId: string

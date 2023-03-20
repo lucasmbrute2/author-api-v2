@@ -6,7 +6,7 @@ import { verify } from 'jsonwebtoken'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { Author } from '../../entities/author'
 import { makeAuthor } from '../../factory/make-author'
-import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
+import { UserAlreadyExistsError } from '../../errors/user-already-exists-error'
 import { RegisterAuthorUseCase } from './register'
 
 let sut: RegisterAuthorUseCase

@@ -3,7 +3,7 @@ import { RedisMock } from '@/application/repositories/in-memory/redis-mock'
 import { hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeAuthor } from '../../factory/make-author'
-import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
+import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 import { LogoutUseCase } from './logout'
 
 let sut: LogoutUseCase
