@@ -1,6 +1,6 @@
 import { randomUUID } from 'node:crypto'
 
-interface PictureProps {
+export interface PictureProps {
   id?: string
   htmlUrl: string
   name: string

@@ -4,7 +4,7 @@ import { PrismaAuthorsRepository } from '@/application/repositories/prisma/prism
 import { LocalStorageProvider } from '@/application/repositories/providers/storage/local-storage-provider'
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { RedisProvider } from '@/application/repositories/redis/redis-provider'
-import { StorageProvider } from '@/application/repositories/storage-repository'
+import { StorageRepository } from '@/application/repositories/storage-repository'
 import { PrismaClient } from '@prisma/client'
 import { container } from 'tsyringe'
 
@@ -23,7 +23,7 @@ container.registerSingleton<AuthorsRepository>(
   PrismaAuthorsRepository,
 )
 
-container.registerSingleton<StorageProvider>(
+container.registerSingleton<StorageRepository>(
   'StorageProvider',
   storage[env.STORAGE],
 )

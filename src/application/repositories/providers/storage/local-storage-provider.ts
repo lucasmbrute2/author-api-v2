@@ -2,9 +2,9 @@ import { Picture } from '@/application/modules/picture/entities/picture'
 import { AppError } from '@/shared/errors/global-errors'
 import fs from 'fs'
 import { resolve } from 'path'
-import { StorageProvider } from '../../storage-repository'
+import { StorageRepository } from '../../storage-repository'
 
-export class LocalStorageProvider implements StorageProvider {
+export class LocalStorageProvider implements StorageRepository {
   async save(file: Picture): Promise<void> {}
 
   async delete(fileKey: string): Promise<void> {
