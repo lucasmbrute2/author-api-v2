@@ -1,4 +1,4 @@
-import { CreatePictureUseCase } from '@/application/modules/picture/use-cases/create/create'
+import { CreatePictureUseCase } from '@/application/modules/picture/use-cases/create/create-use-case'
 import { PictureViewModel } from '@/application/views/picture-view-model'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'

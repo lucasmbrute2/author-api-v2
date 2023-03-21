@@ -1,4 +1,4 @@
-import { ChangePasswordUseCase } from '@/application/modules/author/use-cases/change-password/change-password'
+import { ChangePasswordUseCase } from '@/application/modules/author/use-cases/change-password/change-password-use-case'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 

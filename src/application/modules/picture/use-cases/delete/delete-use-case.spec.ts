@@ -3,7 +3,7 @@ import { InMemoryPictureRepository } from '@/application/repositories/in-memory/
 import { NotFoundError } from '@/shared/errors/global-errors'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { LocalStorageProvider } from '@/application/repositories/providers/storage/local-storage-provider'
-import { DeletePictureUseCase } from './delete'
+import { DeletePictureUseCase } from './delete-use-case'
 
 let storageProvider: LocalStorageProvider
 let inMemoryPicturesRepository: InMemoryPictureRepository

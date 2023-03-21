@@ -1,4 +1,4 @@
-import { AuthenticateUseCase } from '@/application/modules/author/use-cases/authenticate/authenticate'
+import { AuthenticateUseCase } from '@/application/modules/author/use-cases/authenticate/authenticate-use-case'
 import { AuthorViewModel } from '@/application/views/author-view-model'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'

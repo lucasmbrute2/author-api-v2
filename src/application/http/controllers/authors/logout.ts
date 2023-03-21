@@ -1,4 +1,4 @@
-import { LogoutUseCase } from '@/application/modules/author/use-cases/logout/logout'
+import { LogoutUseCase } from '@/application/modules/author/use-cases/logout/logout-use-case'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 

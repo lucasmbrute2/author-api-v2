@@ -5,7 +5,7 @@ import { hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeAuthor } from '../../factory/make-author'
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
-import { LogoutUseCase } from './logout'
+import { LogoutUseCase } from './logout-use-case'
 
 let sut: LogoutUseCase
 let inMemoryAuthorsRepository: InMemoryAuthorsRepository

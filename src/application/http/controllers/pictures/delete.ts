@@ -1,4 +1,4 @@
-import { DeletePictureUseCase } from '@/application/modules/picture/use-cases/delete/delete'
+import { DeletePictureUseCase } from '@/application/modules/picture/use-cases/delete/delete-use-case'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 

@@ -1,4 +1,4 @@
-import { RefreshTokenUseCase } from '@/application/modules/author/use-cases/refresh-token/refresh'
+import { RefreshTokenUseCase } from '@/application/modules/author/use-cases/refresh-token/refresh-token-use-case'
 import { AuthorViewModel } from '@/application/views/author-view-model'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'

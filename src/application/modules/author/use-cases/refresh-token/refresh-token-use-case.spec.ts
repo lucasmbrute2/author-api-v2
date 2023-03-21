@@ -4,7 +4,7 @@ import { RedisMock } from '@/application/repositories/in-memory/redis-mock'
 import { hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeAuthor } from '../../factory/make-author'
-import { RefreshTokenUseCase } from './refresh'
+import { RefreshTokenUseCase } from './refresh-token-use-case'
 import {
   AppError,
   NotFoundError,

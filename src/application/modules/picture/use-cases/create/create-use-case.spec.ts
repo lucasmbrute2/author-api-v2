@@ -6,7 +6,7 @@ import { beforeEach, describe, expect, it } from 'vitest'
 import { makePicture } from '../../factory/make-picture'
 import { makeAuthor } from '@/application/modules/author/factory/make-author'
 import { LocalStorageProvider } from '@/application/repositories/providers/storage/local-storage-provider'
-import { CreatePictureUseCase } from './create'
+import { CreatePictureUseCase } from './create-use-case'
 
 let storageProvider: LocalStorageProvider
 let inMemoryPicturesRepository: InMemoryPictureRepository
