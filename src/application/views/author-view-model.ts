@@ -1,6 +1,6 @@
 import { Author } from '../modules/author/entities/author'
 
-interface AuthorViewModelProps {
+interface AuthorViewModelResponse {
   bio: string
   id: string
   username: string
@@ -9,7 +9,7 @@ interface AuthorViewModelProps {
 }
 
 export class AuthorViewModel {
-  static toHTTP(author: Author): AuthorViewModelProps {
+  static toHTTP(author: Author): AuthorViewModelResponse {
     const { bio, id, username, name, createdAt } = author
     return { bio: bio ?? '', id, username, name, createdAt: createdAt as Date }
   }
