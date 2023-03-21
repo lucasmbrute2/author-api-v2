@@ -4,17 +4,15 @@ import express, { NextFunction, Request, Response } from 'express'
 import { route } from './http/routes'
 import '@/shared/container'
 import { AppError } from '@/shared/errors/global-errors'
+import cookieParser from 'cookie-parser'
+import path from 'path'
 
 export const app = express()
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(route)
-
-app.get('/', (req, res) => {
-  return res.json({
-    message: 'hello world',
-  })
-})
+app.use('/picture/', express.static(path.resolve(__dirname, '..', 'tmp')))
 
 app.use(
   (error: Error, req: Request, res: Response, next: NextFunction): Response => {
