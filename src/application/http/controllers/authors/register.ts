@@ -17,10 +17,18 @@ export class RegisterController {
     const { name, password, username } = req.body
 
     const registerAuthorUseCase = container.resolve(RegisterAuthorUseCase)
-    const { accessToken, author } = await registerAuthorUseCase.execute({
-      name,
-      password,
-      username,
+    const { accessToken, author, refreshToken } =
+      await registerAuthorUseCase.execute({
+        name,
+        password,
+        username,
+      })
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      sameSite: 'none',
+      maxAge: 60 * 60 * 1000, // 24h
+      secure: true,
     })
 
     return res.status(201).json({
