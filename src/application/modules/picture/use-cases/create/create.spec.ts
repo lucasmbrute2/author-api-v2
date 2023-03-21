@@ -4,7 +4,7 @@ import { InMemoryPictureRepository } from '@/application/repositories/in-memory/
 import { NotFoundError } from '@/shared/errors/global-errors'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makePicture } from '../../factory/make-picture'
-import { UploadUseCase } from './upload'
+import { UploadUseCase } from './create'
 import { makeAuthor } from '@/application/modules/author/factory/make-author'
 import { LocalStorageProvider } from '@/application/repositories/providers/storage/local-storage-provider'
 
