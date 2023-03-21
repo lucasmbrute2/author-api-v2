@@ -7,8 +7,8 @@ import { StorageRepository } from '../../storage-repository'
 export class LocalStorageProvider implements StorageRepository {
   async create(file: Picture): Promise<void> {}
 
-  async delete(fileKey: string): Promise<void> {
-    const fileName = resolve(fileKey)
+  async delete(aliasKey: string): Promise<void> {
+    const fileName = resolve('tmp', aliasKey)
 
     try {
       await fs.promises.stat(fileName)
