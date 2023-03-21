@@ -4,11 +4,7 @@ import { ChangePasswordController } from '../controllers/authors/change-password
 import { LogoutController } from '../controllers/authors/logout'
 import { RegisterController } from '../controllers/authors/register'
 import { Authorization } from '../middlewares/ensure-authenticate'
-import {
-  validateAuthenticateSchema,
-  validateChangePasswordSchema,
-  validateRegisterSchema,
-} from '../middlewares/validate-author-body'
+import { validateAuthorBody } from '../middlewares/validate-author-body'
 
 const authorRouter = Router()
 
@@ -19,15 +15,15 @@ const authController = new AuthenticateController()
 const logoutController = new LogoutController()
 const changePasswordController = new ChangePasswordController()
 
-authorRouter.post('/', validateRegisterSchema, registerController.handle)
-authorRouter.post('/session', validateAuthenticateSchema, authController.handle)
+authorRouter.post('/', validateAuthorBody, registerController.handle)
+authorRouter.post('/session', validateAuthorBody, authController.handle)
 
 // protected routes
 authorRouter.get('/logout', authorization.ensureAuth, logoutController.handle)
 authorRouter.patch(
   '/password',
   authorization.ensureAuth,
-  validateChangePasswordSchema,
+  validateAuthorBody,
   changePasswordController.handle,
 )
 
