@@ -2,8 +2,8 @@ import multer from 'multer'
 import { Router } from 'express'
 import { multerConfigs } from '@/application/constraints/upload-multer'
 import { Authorization } from '../middlewares/ensure-authenticate'
-import { DeletePictureController } from '../controllers/pictures/delete'
-import { CreatePictureController } from '../controllers/pictures/create'
+import { DeletePictureController } from '../controllers/pictures/delete-controller'
+import { CreatePictureController } from '../controllers/pictures/create-controller'
 
 const picturesRoutes = Router()
 const authorization = new Authorization()

@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import { CreatePictureController } from '../controllers/pictures/create'
+import { CreatePictureController } from '../controllers/pictures/create-controller'
 import { authorRouter } from './author.routes'
 import { picturesRoutes } from './picture.routes'
 const route = Router()
