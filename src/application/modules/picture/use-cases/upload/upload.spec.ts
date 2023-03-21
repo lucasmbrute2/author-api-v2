@@ -33,7 +33,7 @@ describe('Upload picture use case', () => {
     ).rejects.toBeInstanceOf(NotFoundError)
   })
 
-  it('should be able to save a picture', async () => {
+  it('should be able to save a picture in database', async () => {
     const author = makeAuthor()
     await inMemoryAuthorsRepository.create(author)
     const picture = makePicture()
@@ -49,7 +49,7 @@ describe('Upload picture use case', () => {
     ])
   })
 
-  it('should be able to upload a picture', async () => {
+  it('should be able to create a picture', async () => {
     const author = makeAuthor()
     await inMemoryAuthorsRepository.create(author)
     const picture = makePicture()

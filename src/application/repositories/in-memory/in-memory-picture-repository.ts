@@ -4,7 +4,7 @@ import { PictureRepository } from '../pictures-repository'
 export class InMemoryPictureRepository implements PictureRepository {
   public pictures: Picture[] = []
 
-  async save(picture: Picture): Promise<void> {
+  async create(picture: Picture): Promise<void> {
     this.pictures.push(picture)
   }
 
@@ -14,5 +14,14 @@ export class InMemoryPictureRepository implements PictureRepository {
     )
 
     this.pictures.splice(pictureIndex, 1)
+  }
+
+  async findByAliasKey(aliasKey: string): Promise<Picture | null> {
+    const picture = this.pictures.find(
+      (picture) => picture.aliasKey === aliasKey,
+    )
+    if (!picture) return null
+
+    return picture
   }
 }

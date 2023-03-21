@@ -5,7 +5,7 @@ import { resolve } from 'path'
 import { StorageRepository } from '../../storage-repository'
 
 export class LocalStorageProvider implements StorageRepository {
-  async save(file: Picture): Promise<void> {}
+  async create(file: Picture): Promise<void> {}
 
   async delete(fileKey: string): Promise<void> {
     const fileName = resolve(fileKey)

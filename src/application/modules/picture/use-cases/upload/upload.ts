@@ -32,12 +32,10 @@ export class UploadUseCase {
       authorId,
     })
 
-    await this.pictureRepository.save(picture)
-    await this.storageProvider.save(picture)
+    await this.pictureRepository.create(picture)
+    await this.storageProvider.create(picture)
 
     // picture.htmlUrl = `https://${enviromentVariables.aws.bucketName}.s3.${enviromentVariables.aws.region}.amazonaws.com/test/${picture.aliasKey}`
-
-    // await this.pictureRepository.save(picture)
 
     return {
       picture,
