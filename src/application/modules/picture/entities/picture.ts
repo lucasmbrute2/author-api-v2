@@ -7,7 +7,7 @@ export interface PictureProps {
   aliasKey: string
   createdAt?: Date
   deletedAt?: Date | null
-  authorId?: string
+  authorId: string
 }
 
 export class Picture {
@@ -67,11 +67,11 @@ export class Picture {
     this.props.deletedAt = null
   }
 
-  set authorId(authorId: string | undefined) {
+  set authorId(authorId: string) {
     this.props.authorId = authorId
   }
 
-  get authorId(): string | undefined {
+  get authorId(): string {
     return this.props.authorId
   }
 }

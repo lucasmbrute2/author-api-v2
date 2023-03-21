@@ -7,6 +7,7 @@ export function makePicture(override?: PartialPicture): Picture {
     aliasKey: 'random-alias-key',
     htmlUrl: 'random-html-url',
     name: 'random-picture-name',
+    authorId: 'random-author-id',
     ...override,
   })
 }
