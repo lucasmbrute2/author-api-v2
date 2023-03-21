@@ -1,5 +1,8 @@
 import { Picture } from '@/application/modules/picture/entities/picture'
-import { PictureRepository } from '../pictures-repository'
+import {
+  findManyByAuthorIdProps,
+  PictureRepository,
+} from '../pictures-repository'
 
 export class InMemoryPictureRepository implements PictureRepository {
   public pictures: Picture[] = []
@@ -23,5 +26,18 @@ export class InMemoryPictureRepository implements PictureRepository {
     if (!picture) return null
 
     return picture
+  }
+
+  async findManyByAuthorId({
+    authorId,
+    page,
+  }: findManyByAuthorIdProps): Promise<Picture[]> {
+    const resultQuantity = 10
+
+    const pictures = this.pictures
+      .filter((picture) => picture.authorId === authorId)
+      .slice((page - 1) * resultQuantity, page * resultQuantity)
+
+    return pictures
   }
 }
