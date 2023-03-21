@@ -3,11 +3,16 @@ import { Author } from '../../entities/author'
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { createAccessTokenAndRefreshToken } from '@/application/helpers/create-access-token-and-refresh-token'
 import { inject, injectable } from 'tsyringe'
-import { NotFoundError, Unauthorized } from '@/shared/errors/global-errors'
+import {
+  AppError,
+  NotFoundError,
+  Unauthorized,
+} from '@/shared/errors/global-errors'
+import { verify } from 'jsonwebtoken'
+import { env } from '@/application/env'
 
 interface RefreshTokenUseCaseProps {
   refreshToken: string
-  authorId: string
 }
 
 interface RefreshTokenUseCaseResponse {
@@ -26,10 +31,21 @@ export class RefreshTokenUseCase {
   ) {}
 
   async execute({
-    authorId,
     refreshToken,
   }: RefreshTokenUseCaseProps): Promise<RefreshTokenUseCaseResponse> {
-    const author = await this.authorRepository.findById(authorId)
+    let authorId = ''
+
+    try {
+      const { sub } = verify(refreshToken, env.JWT_SECRET)
+      authorId = sub as string
+    } catch (err) {
+      throw new AppError(
+        'Invalid refresh token, please try to sign up again',
+        498,
+      )
+    }
+
+    const author = await this.authorRepository.findById(authorId as string)
     if (!author) throw new NotFoundError('Author not found')
 
     if (refreshToken !== author.refreshToken) {

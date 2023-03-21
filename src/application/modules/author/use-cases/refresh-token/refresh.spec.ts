@@ -5,8 +5,12 @@ import { hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makeAuthor } from '../../factory/make-author'
 import { RefreshTokenUseCase } from './refresh'
-import { NotFoundError, Unauthorized } from '@/shared/errors/global-errors'
-import { verify } from 'jsonwebtoken'
+import {
+  AppError,
+  NotFoundError,
+  Unauthorized,
+} from '@/shared/errors/global-errors'
+import { sign, verify } from 'jsonwebtoken'
 import { env } from '@/application/env'
 import { Author } from '../../entities/author'
 
@@ -22,33 +26,53 @@ describe('Authenticate use case', () => {
   })
 
   it('should not be able refresh the token if author was not found', async () => {
+    const author = makeAuthor()
+    const refreshToken = sign({}, env.JWT_SECRET, {
+      subject: 'random-author-id',
+    })
+    author.refreshToken = refreshToken
+
+    await inMemoryAuthorsRepository.create(author)
+
     await expect(() =>
       sut.execute({
-        authorId: 'random-author-id',
-        refreshToken: 'random-refresh-token',
+        refreshToken,
       }),
     ).rejects.toBeInstanceOf(NotFoundError)
   })
 
-  it('should be able to delete any refresh from author if the informed does not matchs with the stored', async () => {
+  it('should not be able to proceed without a valid refresh token', async () => {
+    await expect(() =>
+      sut.execute({
+        refreshToken: 'invalid-refresh-token',
+      }),
+    ).rejects.toBeInstanceOf(AppError)
+  })
+
+  it('should not be able to delete the refresh token from author if the informed does not matchs with the stored and should delete it', async () => {
     const author = makeAuthor()
 
     const incriptedPassword = await hash(author.password, 6)
     author.password = incriptedPassword
     await inMemoryAuthorsRepository.create(author)
 
-    await redisMock.setValue(author.id, 'random-access-token', 100)
+    const refreshToken = sign({}, env.JWT_SECRET, {
+      subject: author.id,
+    })
+
+    await redisMock.setValue(author.id, 'random-refresh-token', 100)
 
     await expect(() =>
       sut.execute({
-        authorId: author.id,
-        refreshToken: 'random-refresh-token',
+        refreshToken,
       }),
     ).rejects.toBeInstanceOf(Unauthorized)
 
     const refreshTokenFromMemory = await redisMock.getValue(author.id)
 
     expect(refreshTokenFromMemory).toBeFalsy()
+
+    // delete refresh token that does not matchs expectations from especified author
     expect(author.refreshToken).toBe(null)
     expect(inMemoryAuthorsRepository.authors[0].refreshToken).toBe(null)
   })
@@ -57,13 +81,15 @@ describe('Authenticate use case', () => {
     const author = makeAuthor()
     const incriptedPassword = await hash(author.password, 6)
     author.password = incriptedPassword
-    author.refreshToken = 'new-refresh-token'
+
+    const refreshToken = sign({}, env.JWT_SECRET, {
+      subject: author.id,
+    })
+    author.refreshToken = refreshToken
 
     await inMemoryAuthorsRepository.create(author)
-
     await sut.execute({
-      authorId: author.id,
-      refreshToken: 'new-refresh-token',
+      refreshToken,
     })
 
     const refreshTokenFromMemory = await redisMock.getValue(author.id)
@@ -83,15 +109,15 @@ describe('Authenticate use case', () => {
 
     const incriptedPassword = await hash(author.password, 6)
     author.password = incriptedPassword
-    author.refreshToken = 'new-refresh-token'
+    const refreshToken = sign({}, env.JWT_SECRET, {
+      subject: author.id,
+    })
+    author.refreshToken = refreshToken
     await inMemoryAuthorsRepository.create(author)
 
     const response = await sut.execute({
-      authorId: author.id,
-      refreshToken: 'new-refresh-token',
+      refreshToken,
     })
-
-    console.log(response)
 
     expect(response.author).toBeInstanceOf(Author)
     expect(response.author).toHaveProperty('id')
