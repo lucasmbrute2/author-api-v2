@@ -21,7 +21,7 @@ export class CreatePictureUseCase {
   constructor(
     @inject('StorageProvider')
     private storageProvider: StorageRepository,
-    @inject('AuthorRepository')
+    @inject('AuthorsRepository')
     private authorRepository: AuthorsRepository,
     @inject('PictureRepository')
     private pictureRepository: PictureRepository,
