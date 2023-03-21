@@ -8,7 +8,7 @@ import {
   validateAuthenticateSchema,
   validateChangePasswordSchema,
   validateRegisterSchema,
-} from '../middlewares/validate-author-body-schema'
+} from '../middlewares/validate-author-body'
 
 const authorRouter = Router()
 
