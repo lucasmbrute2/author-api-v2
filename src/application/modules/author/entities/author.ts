@@ -28,6 +28,10 @@ export class Author {
     return this.props.id
   }
 
+  set id(id: string) {
+    this.props.id = id
+  }
+
   set name(name: string) {
     this.props.name = name
   }
@@ -76,6 +80,14 @@ export class Author {
   unDoDelete() {
     if (!this.props.deletedAt) throw new Error('This author is not deleted')
     this.props.deletedAt = null
+  }
+
+  set pictures(pictures: Picture[] | undefined) {
+    if (pictures?.length) {
+      this.props.pictures = this.props.pictures
+        ? [...this.props.pictures, ...pictures]
+        : [...pictures]
+    }
   }
 
   get pictures(): Picture[] | undefined {
