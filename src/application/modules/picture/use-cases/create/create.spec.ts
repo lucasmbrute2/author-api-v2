@@ -4,14 +4,14 @@ import { InMemoryPictureRepository } from '@/application/repositories/in-memory/
 import { NotFoundError } from '@/shared/errors/global-errors'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { makePicture } from '../../factory/make-picture'
-import { UploadUseCase } from './create'
 import { makeAuthor } from '@/application/modules/author/factory/make-author'
 import { LocalStorageProvider } from '@/application/repositories/providers/storage/local-storage-provider'
+import { CreatePictureUseCase } from './create'
 
 let storageProvider: LocalStorageProvider
 let inMemoryPicturesRepository: InMemoryPictureRepository
 let inMemoryAuthorsRepository: InMemoryAuthorsRepository
-let sut: UploadUseCase
+let sut: CreatePictureUseCase
 
 describe('Upload picture use case', () => {
   beforeEach(() => {
@@ -19,7 +19,7 @@ describe('Upload picture use case', () => {
     inMemoryPicturesRepository = new InMemoryPictureRepository()
     storageProvider = new LocalStorageProvider()
 
-    sut = new UploadUseCase(
+    sut = new CreatePictureUseCase(
       storageProvider,
       inMemoryAuthorsRepository,
       inMemoryPicturesRepository,
@@ -27,18 +27,28 @@ describe('Upload picture use case', () => {
   })
 
   it('should not be able to proceed with upload if author was not found', async () => {
-    const picture = makePicture()
+    const { aliasKey, htmlUrl, name } = makePicture()
     await expect(() =>
-      sut.execute(picture, 'random-author-id'),
+      sut.execute({
+        aliasKey,
+        authorId: 'random-author-id',
+        htmlUrl,
+        name,
+      }),
     ).rejects.toBeInstanceOf(NotFoundError)
   })
 
   it('should be able to save a picture in database', async () => {
     const author = makeAuthor()
+    const { aliasKey, htmlUrl, name } = makePicture()
     await inMemoryAuthorsRepository.create(author)
-    const picture = makePicture()
 
-    await sut.execute(picture, author.id)
+    await sut.execute({
+      aliasKey,
+      authorId: author.id,
+      htmlUrl,
+      name,
+    })
 
     expect(inMemoryPicturesRepository.pictures).toHaveLength(1)
     expect(inMemoryPicturesRepository.pictures).toEqual([
@@ -52,9 +62,14 @@ describe('Upload picture use case', () => {
   it('should be able to create a picture', async () => {
     const author = makeAuthor()
     await inMemoryAuthorsRepository.create(author)
-    const picture = makePicture()
+    const { aliasKey, htmlUrl, name } = makePicture()
 
-    const { picture: createdPicture } = await sut.execute(picture, author.id)
+    const { picture: createdPicture } = await sut.execute({
+      aliasKey,
+      htmlUrl,
+      name,
+      authorId: author.id,
+    })
 
     expect(createdPicture).toHaveProperty('id')
     expect(createdPicture).toHaveProperty('createdAt')

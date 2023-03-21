@@ -3,14 +3,21 @@ import { PictureRepository } from '@/application/repositories/pictures-repositor
 import { StorageRepository } from '@/application/repositories/storage-repository'
 import { NotFoundError } from '@/shared/errors/global-errors'
 import { inject, injectable } from 'tsyringe'
-import { Picture, PictureProps } from '../../entities/picture'
+import { Picture } from '../../entities/picture'
 
-interface UploadUseCaseResponse {
+interface CreatePictureUseCaseProps {
+  aliasKey: string
+  htmlUrl: string
+  name: string
+  authorId: string
+}
+
+interface CreatePictureUseCaseResponse {
   picture: Picture
 }
 
 @injectable()
-export class UploadUseCase {
+export class CreatePictureUseCase {
   constructor(
     @inject('StorageProvider')
     private storageProvider: StorageRepository,
@@ -20,15 +27,19 @@ export class UploadUseCase {
     private pictureRepository: PictureRepository,
   ) {}
 
-  async execute(
-    file: PictureProps,
-    authorId: string,
-  ): Promise<UploadUseCaseResponse> {
+  async execute({
+    aliasKey,
+    htmlUrl,
+    name,
+    authorId,
+  }: CreatePictureUseCaseProps): Promise<CreatePictureUseCaseResponse> {
     const author = await this.authorRepository.findById(authorId)
     if (!author) throw new NotFoundError('Author not found')
 
     const picture = new Picture({
-      ...file,
+      aliasKey,
+      htmlUrl,
+      name,
       authorId,
     })
 
