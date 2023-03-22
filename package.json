@@ -4,9 +4,14 @@
   "description": "Author API",
   "main": "server.js",
   "scripts": {
-    "test": "vitest run --dir src/application",
-    "test:watch": "vitest --dir src/application",
+    "test": "vitest run --dir src/application/modules",
+    "test:watch": "vitest --dir src/application/modules",
     "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
+    "test:e2e": "vitest run --dir src/application/http/controllers",
+    "test:create-e2e-environment": "npm link ./tests/vitest-environment-e2e-databases",
+    "test:install-e2e-environment": "npm link vitest-environment-e2e-databases",
+    "pretest:e2e": "run-s test:create-e2e-environment test:install-e2e-environment",
     "start:dev": "tsx watch src/application/server.ts"
   },
   "dependencies": {
@@ -32,6 +37,7 @@
     "@types/multer": "1.4.7",
     "@types/node": "18.15.3",
     "@vitest/coverage-c8": "0.29.3",
+    "npm-run-all": "4.1.5",
     "prisma": "4.11.0",
     "tsx": "3.12.5",
     "typescript": "5.0.2",
