@@ -20,5 +20,8 @@ describe('Authenticate (e2e)', () => {
     expect(response.body).toEqual({
       accessToken: expect.any(String),
     })
+    expect(response.get('Set-Cookie')).toEqual([
+      expect.stringContaining('refreshToken='),
+    ])
   })
 })
