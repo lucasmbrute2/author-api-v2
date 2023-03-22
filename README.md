@@ -1,6 +1,6 @@
 # Welcome to Author API v2
 
-O Author API v2 é a versão melhorada do Author Api, alguns pontos mudaram, principalmente em relação a testes. Todos os uses-cases/services estão testado com unit tests, também estão presentes testes e2e. O services estão mais claros e limpos, as variáveis estão melhores declaradas e a validação ocorre por middlewares utilizando a biblioteca ZOD.
+O Author API v2 é a versão melhorada do Author Api, alguns pontos mudaram, principalmente em relação a testes. Todos os uses-cases/services estão testados com unit tests, também estão presentes testes e2e. O services estão mais claros e limpos, as variáveis estão melhores declaradas e a validação ocorre por middlewares utilizando a biblioteca ZOD.
 
 
 ## Como inicar o projeto: 
