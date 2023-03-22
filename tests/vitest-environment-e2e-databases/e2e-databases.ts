@@ -3,6 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { Environment } from 'vitest'
 import { execSync } from 'node:child_process'
 import { PrismaClient } from '@prisma/client'
+import { Redis } from 'ioredis'
 
 const prisma = new PrismaClient()
 
@@ -16,13 +17,20 @@ function generatePrismaDatabaseUrl(schema: string) {
   return url.toString()
 }
 
-function generateRedisDatabase() {
+function generateRedisDatabase(): Redis {
   if (!process.env.REDISPASSWORD || !process.env.REDISUSER) {
     throw new Error('Please provide a REDIS environment variables')
   }
 
-  process.env.REDISPASSWORD = randomUUID()
-  process.env.REDISUSER = randomUUID()
+  // TODO mock Redis RB instead 'real' db
+  const redis = new Redis({
+    port: 6379,
+    host: 'localhost',
+    username: process.env.REDISUSER,
+    password: process.env.REDISPASSWORD,
+  })
+
+  return redis
 }
 
 export default <Environment>{
@@ -34,6 +42,7 @@ export default <Environment>{
     execSync('npx prisma migrate deploy')
 
     generateRedisDatabase()
+    const redis = generateRedisDatabase()
 
     return {
       async teardown() {
@@ -41,6 +50,7 @@ export default <Environment>{
           `DROP SCHEMA IF EXISTS "${prismaSchema}" CASCADE`,
         )
         await prisma.$disconnect()
+        redis.disconnect()
       },
     }
   },
