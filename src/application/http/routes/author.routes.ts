@@ -18,13 +18,14 @@ const changePasswordController = new ChangePasswordController()
 const refreshTokenController = new RefreshTokenController()
 
 authorRouter.post('/', validateAuthorBody, registerController.handle)
-authorRouter.post('/session', validateAuthorBody, authController.handle)
+authorRouter.patch('/session', validateAuthorBody, authController.handle)
 
 // protected routes
 authorRouter.get('/logout', authorization.ensureAuth, logoutController.handle)
 authorRouter.patch(
   '/password',
   authorization.ensureAuth,
+  validateAuthorBody,
   changePasswordController.handle,
 )
 
