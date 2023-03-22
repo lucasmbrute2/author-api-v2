@@ -5,6 +5,7 @@ O Author API v2 é a versão melhorada do Author Api, alguns pontos mudaram, pri
 
 ## Como inicar o projeto: 
 ```
+- Rodar o comando npm install
 - Preencher as variáveis ambiente
 - Rodar o comando docker compose up 
 - Rodar o comando npm run start:dev
