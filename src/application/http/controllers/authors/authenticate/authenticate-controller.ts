@@ -21,12 +21,6 @@ export class AuthenticateController {
         password,
       })
 
-    res.clearCookie('refreshToken', {
-      httpOnly: true,
-      sameSite: 'none',
-      secure: true,
-    })
-
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
