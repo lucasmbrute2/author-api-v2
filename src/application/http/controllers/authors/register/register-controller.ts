@@ -27,7 +27,7 @@ export class RegisterController {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       sameSite: 'none',
-      maxAge: 60 * 60 * 1000, // 24h
+      maxAge: 60 * 60 * 1000 * 24, // 24h
       secure: true,
     })
 

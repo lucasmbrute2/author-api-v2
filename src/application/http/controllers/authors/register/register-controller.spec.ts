@@ -17,5 +17,9 @@ describe('Register (e2e)', () => {
         accessToken: expect.any(String),
       }),
     )
+
+    expect(response.get('Set-Cookie')).toEqual([
+      expect.stringContaining('refreshToken='),
+    ])
   })
 })
