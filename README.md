@@ -26,7 +26,7 @@ npm run test:e2e:watch
 
 Essas são as rotas disponíveis, para acessar a entidade de usuário as todas rotas terão o prefixo '/author' e '/picture' para rodas que interagem com as fotos
 
-author/
+POST author/
 
 Registrar um usuário.
 Expected body: 
@@ -37,7 +37,12 @@ Expected body:
 * confirmPassword: string
 ```  
 
-author/session
+PATCH author/token/refresh
+- Atualiza o access token do usuário para que não tenha que logar na aplicação novamente. O refresh token é salvo nos cookies com a flag httpOnly na criação/autenticação do usuário. 
+```
+Apesar de ser um método patch, não possui um corpo de requisição.
+```
+POST author/session
 
 Autenticar um usuário.
 
@@ -46,3 +51,25 @@ expected body:
 * username: string unique
 * password: string
 ```
+
+POST picture/
+
+Você deve poder fazer upload de uma foto. Deverá enviar um jwt token nos headers.
+
+* selecione Multipartform
+
+expected body:
+
+```
+picture: file
+```
+
+
+GET picture/me/search
+
+Procura todas as fotos que aquele usuário fez upload, retornando 10 por vez. Aceite um queryParam page indicando o número da página. 
+* Precisa enviar um JWT token nos headers.
+
+
+DELETE /picture/:aliasKey
+- Esta rota permite a deleção de uma imagem baseada em sua aliasKey, o usuário deve enviar um token JWT válido pelo headers
