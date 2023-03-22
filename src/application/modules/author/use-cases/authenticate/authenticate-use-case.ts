@@ -3,7 +3,6 @@ import { AuthorsRepository } from '@/application/repositories/authors-repository
 import { RedisRepository } from '@/application/repositories/redis-repository'
 import { compare } from 'bcryptjs'
 import { inject, injectable } from 'tsyringe'
-import { Author } from '../../entities/author'
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 
 interface AuthenticateUseCaseProps {
@@ -12,7 +11,6 @@ interface AuthenticateUseCaseProps {
 }
 
 interface AuthenticateUseCaseResponse {
-  author: Author
   accessToken: string
   refreshToken: string
 }
@@ -49,7 +47,6 @@ export class AuthenticateUseCase {
     )
 
     return {
-      author,
       accessToken: accessToken.token,
       refreshToken: refreshToken.token,
     }

@@ -1,5 +1,4 @@
 import { AuthenticateUseCase } from '@/application/modules/author/use-cases/authenticate/authenticate-use-case'
-import { AuthorViewModel } from '@/application/views/author-view-model'
 import { Request, Response } from 'express'
 import { container } from 'tsyringe'
 
@@ -16,7 +15,7 @@ export class AuthenticateController {
     const { username, password } = req.body
 
     const authenticateAuthorUseCase = container.resolve(AuthenticateUseCase)
-    const { accessToken, author, refreshToken } =
+    const { accessToken, refreshToken } =
       await authenticateAuthorUseCase.execute({
         username,
         password,
@@ -36,7 +35,6 @@ export class AuthenticateController {
     })
 
     return res.status(200).json({
-      author: AuthorViewModel.toHTTP(author),
       accessToken,
     })
   }
