@@ -3,7 +3,6 @@ import { InMemoryAuthorsRepository } from '@/application/repositories/in-memory/
 import { RedisMock } from '@/application/repositories/in-memory/redis-mock'
 import { hash } from 'bcryptjs'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { Author } from '../../entities/author'
 import { makeAuthor } from '../../factory/make-author'
 import { InvalidCredentialsError } from '../../errors/invalid-credentials-error'
 import { AuthenticateUseCase } from './authenticate-use-case'
@@ -32,8 +31,10 @@ describe('Authenticate use case', () => {
       password: 'StrongPassword!123',
     })
 
-    expect(response.author).toBeInstanceOf(Author)
-    expect(response.author).toHaveProperty('id')
+    expect(response).toEqual({
+      accessToken: expect.any(String),
+      refreshToken: expect.any(String),
+    })
   })
 
   it('should not be able to authenticate an author with wrong password ', async () => {
