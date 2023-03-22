@@ -1,3 +1,3 @@
 # Welcome to Author API v2
 
-Algumas mudanças aconteceram desde a primera versão até essa, incluido o README em português. A maior diferença está principalmente nos testes, todos os use-cases/services estão com testes unitários
+O Author API v2 é a versão melhorada do Author Api, algumas pontos mudaram, principalmente em relação a testes. Todos os uses-cases/services estão testado com unit test, também possuem tests e2e. O services estão mais claros e limpos, as variáveis estão melhores declaras e a validação ocorre por middlewares utilizando a biblioteca ZOD.
