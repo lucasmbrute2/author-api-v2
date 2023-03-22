@@ -45,8 +45,6 @@ describe('Fetch pictures use case', () => {
       page: 2,
     })
 
-    console.log(response.pictures)
-
     expect(response.pictures[0]).toBeInstanceOf(Picture)
     // the last 2 pictures from last page
     expect(response.pictures).toHaveLength(2)

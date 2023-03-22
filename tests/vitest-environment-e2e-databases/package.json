@@ -1,0 +1,9 @@
+{
+  "name": "vitest-environment-e2e-databases",
+  "version": "1.0.0",
+  "description": "",
+  "main": "e2e-databases.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
